@@ -30,7 +30,10 @@
 		switch (msg) {
 		case WM_LBUTTONUP:
 			char * cs = ReadCharFrom("https://www.pathofexile.com/character-window/get-characters?accountName=RockyFish");
-			CreateWindow(L"STATIC", convertToLString(cs), WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			LPWSTR str = convertToLString(cs);
+			CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			delete(str);
+			delete(cs);
 			break;
 		}
 		return CallWindowProc(charButtonProc, hwnd, msg, wp, lp);
@@ -41,7 +44,10 @@
 		switch (msg) {
 		case WM_LBUTTONUP:
 			char * cs = ReadCharFrom("https://www.pathofexile.com/character-window/get-items?character=AWanderingFish&accountName=RockyFish");
-			CreateWindow(L"STATIC", convertToLString(cs), WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			LPWSTR str = convertToLString(cs);
+			CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			delete(str);
+			delete(cs);
 			break;
 		}
 		return CallWindowProc(gearButtonProc, hwnd, msg, wp, lp);
@@ -52,7 +58,10 @@
 		switch (msg) {
 		case WM_LBUTTONUP:
 			char * cs = ReadCharFrom("https://www.pathofexile.com/character-window/get-passive-skills?reqData=false&character=AWanderingFish&accountName=RockyFish");
-			CreateWindow(L"STATIC", convertToLString(cs), WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			LPWSTR str = convertToLString(cs);
+			CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			delete(str);
+			delete(cs);
 			break;
 		}
 		return CallWindowProc(treeButtonProc, hwnd, msg, wp, lp);
