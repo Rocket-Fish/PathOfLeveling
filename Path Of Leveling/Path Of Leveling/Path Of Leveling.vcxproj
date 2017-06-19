@@ -91,6 +91,11 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <HeapCommitSize>
+      </HeapCommitSize>
+      <StackCommitSize>
+      </StackCommitSize>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -139,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonFunctions.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="NetworkRequests.h" />
     <ClInclude Include="Path Of Leveling.h" />
     <ClInclude Include="Resource.h" />

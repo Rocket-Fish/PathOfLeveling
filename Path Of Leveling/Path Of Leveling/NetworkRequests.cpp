@@ -14,7 +14,7 @@ char *readUrl2(char *szUrl, long &bytesReturnedOut, char **headerOut);
 
 char* ReadCharFrom(char * url)
 {
-	const int bufLen = 2048;
+	const int bufLen = 248527;
 	char *szUrl = url;
 	long fileSize;
 	char *memBuffer, *headerBuffer;

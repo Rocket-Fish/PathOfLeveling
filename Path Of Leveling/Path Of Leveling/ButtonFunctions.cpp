@@ -2,18 +2,22 @@
 #include "ButtonFunctions.h"
 #include "NetworkRequests.h"
 #include <cstdlib>
+#include "json.h"
+using json = nlohmann::json;
 
 	WNDPROC  charButtonProc;
 	WNDPROC  gearButtonProc;
 	WNDPROC  treeButtonProc;
+
 	HINSTANCE hInstanceForButton;
 	HWND hWnd_parent_forButton;
+	HWND currentDisplay_HWND; 
 	void setHInstForOutput(HINSTANCE hInstt) {
 		hInstanceForButton = hInstt;
 
 	}
 
-	LPWSTR convertToLString(const char* cs) {
+	LPWSTR chartoLPWSTR(const char* cs) {
 	size_t wn = mbsrtowcs(NULL, &cs, 0, NULL);
 	// error if wn == size_t(-1)
 	wchar_t * buf = new wchar_t[wn + 1]();  // value-initialize to 0 (see below)
@@ -24,14 +28,22 @@
 	return buf;
 	}
 
-
 	LRESULT CALLBACK CharButtonProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	{
 		switch (msg) {
 		case WM_LBUTTONUP:
 			char * cs = ReadCharFrom("https://www.pathofexile.com/character-window/get-characters?accountName=RockyFish");
-			LPWSTR str = convertToLString(cs);
-			CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+
+			////// Deconstruct the Json char array
+			json j = json::parse(cs);
+			std::string s = j.dump(4);
+			const char * ss = s.c_str();
+			LPWSTR str = chartoLPWSTR(ss);
+
+			if (currentDisplay_HWND != NULL) {
+				DestroyWindow(currentDisplay_HWND);
+			}
+			currentDisplay_HWND = CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 850, 500, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
 			delete(str);
 			delete(cs);
 			break;
@@ -44,8 +56,16 @@
 		switch (msg) {
 		case WM_LBUTTONUP:
 			char * cs = ReadCharFrom("https://www.pathofexile.com/character-window/get-items?character=AWanderingFish&accountName=RockyFish");
-			LPWSTR str = convertToLString(cs);
-			CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			////// Deconstruct the Json char array
+			json j = json::parse(cs);
+			std::string s = j.dump(4);
+			const char * ss = s.c_str();
+			LPWSTR str = chartoLPWSTR(ss);
+
+			if (currentDisplay_HWND != NULL) {
+				DestroyWindow(currentDisplay_HWND);
+			}
+			currentDisplay_HWND = CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 850, 500, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
 			delete(str);
 			delete(cs);
 			break;
@@ -57,9 +77,17 @@
 	{
 		switch (msg) {
 		case WM_LBUTTONUP:
-			char * cs = ReadCharFrom("https://www.pathofexile.com/character-window/get-passive-skills?reqData=false&character=AWanderingFish&accountName=RockyFish");
-			LPWSTR str = convertToLString(cs);
-			CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 450, 100, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
+			char * cs = ReadCharFrom("https://www.pathofexile.com/character-window/get-passive-skills?character=AWanderingFish&accountName=RockyFish");
+			////// Deconstruct the Json char array
+			json j = json::parse(cs);
+			std::string s = j.dump(4);
+			const char * ss = s.c_str();
+			LPWSTR str = chartoLPWSTR(ss);
+
+			if (currentDisplay_HWND != NULL) {
+				DestroyWindow(currentDisplay_HWND);
+			}
+			currentDisplay_HWND = CreateWindow(L"STATIC", str, WS_VISIBLE | WS_CHILD | SS_LEFT, 10, 60, 850, 500, hWnd_parent_forButton, NULL, hInstanceForButton, NULL);
 			delete(str);
 			delete(cs);
 			break;
