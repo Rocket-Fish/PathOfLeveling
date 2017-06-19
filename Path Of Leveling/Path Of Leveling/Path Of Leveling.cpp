@@ -108,7 +108,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
-
+   setHInstForOutput(hInst);
    MakeTheButtons(hWnd);
 
    ShowWindow(hWnd, nCmdShow);
