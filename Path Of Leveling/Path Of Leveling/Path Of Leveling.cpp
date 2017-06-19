@@ -27,6 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Place code here.
 
+
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_PATHOFLEVELING, szWindowClass, MAX_LOADSTRING);
@@ -83,6 +84,26 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     return RegisterClassExW(&wcex);
 }
 
+// 
+// Create Button Function  
+//
+
+HWND CreateButton(HWND parent_hwnd, LPCTSTR text, int pos_x, int pos_y) {
+	return CreateWindow(
+		L"BUTTON",  // Predefined class; Unicode assumed 
+		text,      // Button text 
+		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
+		pos_x,         // x position 
+		pos_y,         // y position 
+		150,        // Button width
+		50,        // Button height
+		parent_hwnd,     // Parent window
+		NULL,       // No menu.
+		(HINSTANCE)GetWindowLong(parent_hwnd, GWL_HINSTANCE),
+		NULL);      // Pointer not needed.
+}
+
+
 //
 //   FUNCTION: InitInstance(HINSTANCE, int)
 //
@@ -100,10 +121,37 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
+// Window Transparent
+
+   // Enable WS_EX_LAYERED window extended style.
+   LONG ExtendedStyle = GetWindowLong(hWnd,
+	   GWL_EXSTYLE);
+   SetWindowLong(hWnd,
+	   GWL_EXSTYLE,
+	   ExtendedStyle | WS_EX_LAYERED);
+
+   // Select the transparency percentage.
+   // The alpha will be calculated accordingly.
+   double TransparencyPercentage = 50.0;
+
+   // Set the alpha for transparency.
+   // 0 is transparent and 255 is opaque.
+   double fAlpha = TransparencyPercentage * (255.0 / 100);
+   BYTE byAlpha = static_cast<BYTE>(fAlpha);
+   SetLayeredWindowAttributes(hWnd,
+	   0,
+	   byAlpha,
+	   LWA_ALPHA);
+
+
    if (!hWnd)
    {
       return FALSE;
    }
+
+   CreateButton(hWnd, L"Get Gear", 10, 10);
+
+   CreateButton(hWnd, L"Get Tree", 170, 10);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
