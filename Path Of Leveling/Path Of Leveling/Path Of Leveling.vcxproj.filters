@@ -30,12 +30,18 @@
     <ClInclude Include="Path Of Leveling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WindowUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Path Of Leveling.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

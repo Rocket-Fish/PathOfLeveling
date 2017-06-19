@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "Path Of Leveling.h"
+#include "WindowUtils.h"
 
 #define MAX_LOADSTRING 100
 
@@ -84,26 +85,6 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     return RegisterClassExW(&wcex);
 }
 
-// 
-// Create Button Function  
-//
-
-HWND CreateButton(HWND parent_hwnd, LPCTSTR text, int pos_x, int pos_y) {
-	return CreateWindow(
-		L"BUTTON",  // Predefined class; Unicode assumed 
-		text,      // Button text 
-		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
-		pos_x,         // x position 
-		pos_y,         // y position 
-		150,        // Button width
-		50,        // Button height
-		parent_hwnd,     // Parent window
-		NULL,       // No menu.
-		(HINSTANCE)GetWindowLong(parent_hwnd, GWL_HINSTANCE),
-		NULL);      // Pointer not needed.
-}
-
-
 //
 //   FUNCTION: InitInstance(HINSTANCE, int)
 //
@@ -121,28 +102,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-// Window Transparent
-
-   // Enable WS_EX_LAYERED window extended style.
-   LONG ExtendedStyle = GetWindowLong(hWnd,
-	   GWL_EXSTYLE);
-   SetWindowLong(hWnd,
-	   GWL_EXSTYLE,
-	   ExtendedStyle | WS_EX_LAYERED);
-
-   // Select the transparency percentage.
-   // The alpha will be calculated accordingly.
-   double TransparencyPercentage = 50.0;
-
-   // Set the alpha for transparency.
-   // 0 is transparent and 255 is opaque.
-   double fAlpha = TransparencyPercentage * (255.0 / 100);
-   BYTE byAlpha = static_cast<BYTE>(fAlpha);
-   SetLayeredWindowAttributes(hWnd,
-	   0,
-	   byAlpha,
-	   LWA_ALPHA);
-
+   MakeTransparent(hWnd, 80.0);
 
    if (!hWnd)
    {
