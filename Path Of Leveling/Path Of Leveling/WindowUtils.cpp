@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "WindowUtils.h"
 
+
+// 
+// Make A window Transparent by a specific margin
+//
+
 void MakeTransparent(HWND hWnd, double transparencyPercentage) {
 	// Window Transparent
 	// Enable WS_EX_LAYERED window extended style.

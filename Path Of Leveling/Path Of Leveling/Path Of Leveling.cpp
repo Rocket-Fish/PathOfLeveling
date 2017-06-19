@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "Path Of Leveling.h"
-#include "WindowUtils.h"
+#include "ButtonFunctions.h"
 
 #define MAX_LOADSTRING 100
 
@@ -109,9 +109,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   CreateButton(hWnd, L"Get Gear", 10, 10);
-
-   CreateButton(hWnd, L"Get Tree", 170, 10);
+   MakeTheButtons(hWnd);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
