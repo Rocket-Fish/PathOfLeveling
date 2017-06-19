@@ -14,7 +14,7 @@ char *readUrl2(char *szUrl, long &bytesReturnedOut, char **headerOut);
 
 char* ReadCharFrom(char * url)
 {
-	const int bufLen = 1024;
+	const int bufLen = 2048;
 	char *szUrl = url;
 	long fileSize;
 	char *memBuffer, *headerBuffer;
@@ -27,14 +27,15 @@ char* ReadCharFrom(char * url)
 
 
 	memBuffer = readUrl2(szUrl, fileSize, &headerBuffer);
-	printf("returned from readUrl\n");
-	printf("data returned:\n%s", memBuffer);
+//	printf("returned from readUrl\n");
+//	printf("data returned:\n%s", memBuffer);
 	if (fileSize != 0)
 	{
-		printf("Got some data\n");
-		fp = fopen("downloaded.file", "wb");
-		fwrite(memBuffer, 1, fileSize, fp);
-		fclose(fp);
+		// For debugging purpose... write a file
+//		printf("Got some data\n");
+//		fp = fopen("downloaded.file", "wb");
+//		fwrite(memBuffer, 1, fileSize, fp);
+//		fclose(fp);
 		delete(headerBuffer);
 		return memBuffer;
 	}
